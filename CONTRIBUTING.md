@@ -1,15 +1,13 @@
 # Contributing
 
-Thanks for your interest in contributing to GuardianUI! 😄
-
-Both [Playright](https://github.com/microsoft/playwright) and [Cypress](https://github.com/cypress-io/cypress) have fantastic docs and processes. Much of our docs are inspired by theirs 🤝
+Thanks for your interest in contributing to guardianui! 😄
 
 **Once you learn how to use guardianui, you can contribute in lots of ways:**
 
 - Join the [GuardianUI Discord](https://discord.gg/TkfeTpfYxx) and answer questions. Teaching others how to use guardianui is a great way to learn more about how it works.
 - Create content about guardianui. Whether it's a blog post, youtube video tutorial, tweet, or anything in between, sharing information and guidance is a great way to engage the community. Be sure to tag us on [twitter](https://twitter.com/guardian_ui) when you post it so we can share it as well. We may also feature it on our website!
-- Contribute to our docs to improve our [existing docs](https://github.com/GuardianUI/guardianui-documentation)
-- Host a meetup or online workshop. [Contact us](mailto:support@guardianui.com) if you want our help coordinating if this is something you want to do. 🚀 
+- Contribute to our docs to improve our [existing docs](https://github.com/GuardianUI/guardianui-documentation).
+- Host a meetup or online workshop. [Contact us](mailto:support@guardianui.com) if you want our help coordinating or potential involvement. 🚀 
 
 **Interested in contributing to the development of guardianui? There are several ways to do so.**
 
@@ -19,6 +17,8 @@ Both [Playright](https://github.com/microsoft/playwright) and [Cypress](https://
 - Write code to address an issue. We have some issues labeled as [`good first issue`](https://github.com/GuardianUI/guardianui/issues) that are a good place to start. Please be sure to take a moment to review this entire document **before submitting a pull request.** 
 
 If you want to contribute, but aren't sure where to start, you can create a [new discussion](https://github.com/GuardianUI/guardianui/discussions).
+
+<br>
 
 > **Note**
 >
@@ -58,7 +58,7 @@ All contributors are expected to follow our [Code of Conduct](./CODE_OF_CONDUCT.
 - [Update guardianui](#update-guardianui).
 - [Gather debugging info](#getting-more-information).
 - [Complete the issue template](#complete-the-issue-template).
-- [Describe your problem](#describe-your-problem)
+- [Describe your problem](#describe-your-problem).
 - [Explain how to reproduce the issue](#how-to-reproduce).
 
 If you've gone through these steps, are up to date, supported, have collected information about the problem, and have the best reproduction instructions you can give, you are ready to [open an issue](https://github.com/GuardianUI/guardianui/issues).
@@ -79,7 +79,7 @@ For some issues, there are places you can check for more information. This may h
 
 ### Complete the Issue Template
 
-Please use the provided [issue template](https://github.com/GuardianUI/guardianui/issues/new/choose)) to submit your issue. The template includes the information needed for us to continue forward with your problem. Any issues that don't fill out the issue template will be closed.
+Please use the provided [issue template](https://github.com/GuardianUI/guardianui/issues/new/choose) to submit your issue. The template includes the information needed for us to continue forward with your problem. Any issues that don't fill out the issue template will be closed.
 
 ### Describe Your Problem
 
@@ -355,3 +355,6 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
+## Attribution
+
+Both [Playright](https://github.com/microsoft/playwright) and [Cypress](https://github.com/cypress-io/cypress) have fantastic docs and processes. Many areas of our docs are inspired by their docs 🤝
