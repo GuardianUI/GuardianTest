@@ -2,7 +2,7 @@
 
 Thanks for your interest in contributing to GuardianUI! 😄
 
-Both [Playright](https://github.com/microsoft/playwright) and [Cypress](https://github.com/cypress-io/cypress) have fantastic docs and processes. Ours are inspired by their work 🤝
+Both [Playright](https://github.com/microsoft/playwright) and [Cypress](https://github.com/cypress-io/cypress) have fantastic docs and processes. Much of our docs are inspired by theirs 🤝
 
 **Once you learn how to use guardianui, you can contribute in lots of ways:**
 
