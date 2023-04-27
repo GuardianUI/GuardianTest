@@ -39,7 +39,7 @@
 
 ## Documentation
 
-For full documentation and examples, visit [guardianui.com](https://guardianui.gitbook.io/beta-documentation/).
+For full documentation and examples, visit [guardianui.com](INSERT LINK).
 
 ## Installation
 
