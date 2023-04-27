@@ -39,7 +39,7 @@
 
 ## Documentation
 
-For full documentation and examples, visit [guardianui.com](https://guardianui.gitbook.io/beta-documentation/).
+For full documentation and examples, visit [guardianui.com](INSERT LINK).
 
 ## Installation
 
@@ -63,4 +63,4 @@ Check out the following places for more GuardianUI-related content:
 
 ## Contributing
 
-If you're interested in contributing, please read the [contributing docs] before submitting a pull request.
+If you're interested in contributing, please read the [contributing docs](https://github.com/GuardianUI/guardianui/blob/main/CONTRIBUTING.md) before submitting a pull request.
