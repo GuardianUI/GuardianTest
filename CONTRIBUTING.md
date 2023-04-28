@@ -13,7 +13,7 @@ Thanks for your interest in contributing to guardianui! 😄
 
 - [Report bugs](https://github.com/GuardianUI/guardianui/issues/new/choose) by opening an issue.
 - [Request features](https://github.com/GuardianUI/guardianui/discussions/new?category=ideas) by starting a discussion.
-- [Help triage existing issues](#triaging-issues).
+- [Help triage existing issues](https://github.com/GuardianUI/guardianui/issues).
 - Write code to address an issue. We have some issues labeled as [`good first issue`](https://github.com/GuardianUI/guardianui/issues) that are a good place to start. Please be sure to take a moment to review this entire document **before submitting a pull request.** 
 
 If you want to contribute, but aren't sure where to start, you can create a [new discussion](https://github.com/GuardianUI/guardianui/discussions).
@@ -22,7 +22,7 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 > **Note**
 >
-> **Please review the [Discussions]((https://github.com/GuardianUI/guardianui/discussions)) or ask first before starting work on any significant new features. This includes things like ____, ____, ____, ____, etc.**
+> **Please review the [Discussions]((https://github.com/GuardianUI/guardianui/discussions)) or ask first before starting work on any significant new features.**
 >
 > It's never a fun experience to have your pull request declined after investing time and effort into a new feature. To avoid this from happening, we request that contributors create a [feature request](https://github.com/GuardianUI/guardianui/discussions/new?category=ideas) to first discuss any changes or significant new ideas.
 
@@ -32,19 +32,18 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 - [Code of Conduct](#code-of-conduct)
 - [Opening Issues](#opening-issues)
+   - [Update guardianui](#update-guardianui)
+   - [Getting More Information](#getting-more-information)
+   - [Complete the Issue Template](#complete-the-issue-template)
+   - [Describe Your Problem](#describe-your-problem)
+   - [How to Reproduce](#how-to-reproduce)
 - [Writing Documentation](#writing-documentation)
 - [Writing Code](#writing-code)
-  - [What you need to know before getting started](#what-you-need-to-know-before-getting-started)
-  - [Requirements](#requirements)
-  - [Getting Started](#getting-started)
-  - [Coding Style](#coding-style)
-  - [Adding links within code](#Adding-links-within-code)
-  - [Tests](#tests)
-  - [Packages](#packages)
-- [Committing Code](#committing-code)
-  - [Branches](#branches)
-  - [Pull Requests](#pull-requests)
-  - [Dependencies](#dependencies)
+  - [Getting Code](#getting-code)
+  - [Code Style](#code-style)
+  - [API Guidelines](#api-guidelines)
+  - [Commit Messages](#commit-messages)
+  - [Running and Writing Tests](#running-and-writing-tests)
 
 ## Code of Conduct
 
@@ -95,6 +94,8 @@ It can be tempting to provide us with your solution, but the most important thin
 guardianui documentation resides in a separate repo with its own dependencies and build tools. See [Documentation Contributing Guidelines] (INSERT LINK)
 
 ## Writing Code
+
+### Getting Code
 
 Make sure you're running Node.js 14+ and NPM 8+, to verify and upgrade NPM do:
 
@@ -184,41 +185,6 @@ This patch fixes session cookies in the firefox browser.
 Fixes #123, fixes #234
 ```
 
-### Getting Started
-
-The project utilizes [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) and leverages [lerna](https://lerna.js.org/) to orchestrate running within the context of one or more packages. While it is not as important to understand lerna or yarn workspaces, it **is important** to note that running scripts or installing new dependencies should always happen from the repo's root directory.
-
-> **⚠ Running on Windows?**
->
-> If you are running a Windows operating system, you may encounter some commands that are not working. In order to resolve paths correctly during the development build process, you may need to explicitly set your default `yarn` shell script to Command Prompt by using the following command:
->```bash
-> yarn config set script-shell "C:\\Windows\\system32\\cmd.exe"
->```
-
-**Install all dependencies:**
-
-```bash
-yarn
-```
-
-This will install all the dependencies for the repo and perform a preliminary build.
-
-**Next, start the app:**
-
-```bash
-yarn start
-```
-
-If there are errors building the packages, prefix the commands with `DEBUG=cypress:*` to see more details. This outputs a lot of debugging lines. To focus on an individual module, run with `DEBUG=cypress:launcher:*` for instance. See ["Debug logs"](./guides/debug-logs.md) for more info.
-
-When running `yarn start` this routes through the CLI and eventually calls `yarn dev` with the proper arguments. This enables Cypress day-to-day development to match the logic of the built binary + CLI integration.
-
-If you want to bypass the CLI entirely, you can use the `yarn dev` task and pass arguments directly. For example, to headlessly run a project in a given folder, while trying to record to Cypress Cloud.
-
-```text
-yarn dev --run-project /project/folder --record --key <key>
-```
-
 ### Adding New Dependencies
 
 For all dependencies (both installation and development):
@@ -228,7 +194,7 @@ For all dependencies (both installation and development):
 A barrier for introducing new installation dependencies is especially high:
 - **Do not add** installation dependency unless it's critical to project success.
 
-### Running & Writing Tests
+### Running and Writing Tests
 
 - Every feature should be accompanied by a test.
 - Every public api event/method should be accompanied by a test.
@@ -310,40 +276,6 @@ SLOW_MO=500 npm run wtest -- --headed
     with `fail(CHROMIUM || WEBKIT)` since Playwright performing these actions
     currently diverges from what a user would experience driving a Chromium or
     WebKit.
-
-
-#### Docker
-
-Sometimes tests pass locally, but fail in CI. Our CI environment is dockerized. In order to run the image used in CI locally:
-
-1. [Install Docker](https://docs.docker.com/install/) and get it running on your machine.
-2. Run the following command from the root of the project:
-
-```shell
-$ yarn docker
-```
-
-There is a script [scripts/run-docker-local.sh](scripts/run-docker-local.sh) that runs the cypress image (see [CircleCI config](.circleci/config.yml) for the current image name).
-
-The image will start and will map the root of the repository to `/cypress` inside the image. Now you can modify the files using your favorite environment and rerun tests inside the docker environment.
-
-#### Docker for built binary
-
-You can also use Docker to simulate and debug the built binary. In a temporary folder (for example from the folder `/tmp/test-folder/`) start a Docker image:
-
-```shell
-$ docker run -it -w /app -v $PWD:/app cypress/base:8 /bin/bash
-```
-
-Point the installation at a specific beta binary and NPM package archive (if needed) and _set local cache folder_ to unzip the downloaded binary into a subfolder.
-
-```shell
-$ export CYPRESS_INSTALL_BINARY=https://cdn.cypress.io/beta/.../cypress.zip
-$ export CYPRESS_CACHE_FOLDER=./cypress-cache
-$ yarn add https://cdn.cypress.io/beta/npm/.../cypress.tgz
-```
-
-Note that unzipping the Linux binary inside a Docker container onto a mapped volume drive is *slow*. But once this is done you can modify the application resource folder in the local folder `/tmp/test-folder/node_modules/cypress/cypress-cache/3.3.0/Cypress/resources/app` to debug issues.
 
 ## Contributor License Agreement
 
