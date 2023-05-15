@@ -6,21 +6,24 @@
 </p>
 
 <p align="center">
-  End-to-end testing framework for web3 developers building on EVM-compatible chains.
+  GuardianTest is an open-source, e2e testing framework for web3 developers building on EVM-compatible chains.
 <p>
 
 <br>
 
-## What the GuardianUI framework enables
+## What GuardianTest enables
 
-- Testing in an environment similar to production across any EVM-compatible chain
-- Everything [Playwright](https://github.com/microsoft/playwright) already allows you to test (what is displayed, navigation works as expected, buttons are clickable, etc)
-- Making sure your frontend is creating the expected write smart contract interactions (transactions, approvals)
-- Ensuring your frontend responds to a completed transaction the way you are expecting
+- Engage with local deployments, staging deployments, OR live production
+- Perform tests on Ethereum, Polygon, Arbitrum, or Optimism (more coming soon)
+- Pin tests to any block
+- Interact with a site with a wallet
+- Mock ERC20 balances and allowances
+- Validate target contract addresses from app interactions
+- Perform any other actions or validation [Playwright](https://github.com/microsoft/playwright) offers
 
 ## Why it's good
 
-- Does not rely on MetaMask or any other specific wallet where the brittleness of the tests is linked to any breaking changes the wallet provider may push
+- Does not rely on MetaMask or any other specific wallet where the brittleness of the tests is caused by changes from the wallet provider
 - Creates a closer to production testing environment
   - No modified WAGMI connector
   - Looks like mainnet to the site
@@ -46,7 +49,7 @@ For full documentation and examples, visit [guardianui.com](INSERT LINK).
 Install guardianui and its dependencies.
 
 ```bash
-npm install @guardianui/guardianui
+npm install @guardianui/test
 ```
 
 ## Quick Start
