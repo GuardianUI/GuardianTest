@@ -1,15 +1,15 @@
 # Contributing
 
-Thanks for your interest in contributing to guardianui! 😄
+Thanks for your interest in contributing to GuardianTest! 😄
 
-**Once you learn how to use guardianui, you can contribute in lots of ways:**
+**Once you learn how to use GuardianTest, you can contribute in lots of ways:**
 
-- Join the [GuardianUI Discord](https://discord.gg/TkfeTpfYxx) and answer questions. Teaching others how to use guardianui is a great way to learn more about how it works.
-- Create content about guardianui. Whether it's a blog post, youtube video tutorial, tweet, or anything in between, sharing information and guidance is a great way to engage the community. Be sure to tag us on [twitter](https://twitter.com/guardian_ui) when you post it so we can share it as well. We may also feature it on our website!
+- Join the [GuardianUI Discord](https://discord.gg/TkfeTpfYxx) and answer questions. Teaching others how to use GuardianTest is a great way to learn more about how it works.
+- Create content about GuardianTest. Whether it's a blog post, youtube video tutorial, tweet, or anything in between, sharing information and guidance is a great way to engage the community. Be sure to tag us on [twitter](https://twitter.com/guardian_ui) when you post it so we can share it as well. We may also feature it on our website!
 - Contribute to our docs to improve our [existing docs](https://github.com/GuardianUI/guardianui-documentation).
 - Host a meetup or online workshop. [Contact us](mailto:support@guardianui.com) if you want our help coordinating or potential involvement. 🚀 
 
-**Interested in contributing to the development of guardianui? There are several ways to do so.**
+**Interested in contributing to the development of GuardianTest? There are several ways to do so.**
 
 - [Report bugs](https://github.com/GuardianUI/guardianui/issues/new/choose) by opening an issue.
 - [Request features](https://github.com/GuardianUI/guardianui/discussions/new?category=ideas) by starting a discussion.
@@ -32,7 +32,7 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 - [Code of Conduct](#code-of-conduct)
 - [Opening Issues](#opening-issues)
-   - [Update guardianui](#update-guardianui)
+   - [Update GuardianTest](#update-GuardianTest)
    - [Getting More Information](#getting-more-information)
    - [Complete the Issue Template](#complete-the-issue-template)
    - [Describe Your Problem](#describe-your-problem)
@@ -54,7 +54,7 @@ All contributors are expected to follow our [Code of Conduct](./CODE_OF_CONDUCT.
 **The most important things to do are:**
 
 - Search existing [issues](https://github.com/GuardianUI/guardianui/issues) for your problem.
-- [Update guardianui](#update-guardianui).
+- [Update GuardianTest](#update-GuardianTest).
 - [Gather debugging info](#getting-more-information).
 - [Complete the issue template](#complete-the-issue-template).
 - [Describe your problem](#describe-your-problem).
@@ -62,11 +62,11 @@ All contributors are expected to follow our [Code of Conduct](./CODE_OF_CONDUCT.
 
 If you've gone through these steps, are up to date, supported, have collected information about the problem, and have the best reproduction instructions you can give, you are ready to [open an issue](https://github.com/GuardianUI/guardianui/issues).
 
-### Update guardianui
+### Update GuardianTest
 
 Before creating a bug report, make sure you are up to date. Your issue may have already been fixed. Even if you do not see the issue described as resolved in a newer version, a newer version may help in the process of debugging your issue by giving more helpful error messages.
 
-[See our document on installing cypress] (INSERT LINK)
+[See our document on installing GuardianTest](https://github.com/GuardianUI/guardianui-documentation/blob/main/getting-started/installation.md)
 
 ### Getting More Information
 
@@ -74,7 +74,7 @@ For some issues, there are places you can check for more information. This may h
 
 - For issues in the web browser, check the JavaScript console and your Network tab in your DevTools.
 - Click on any command in the Command Log where the failure occurred, this will log more information about the error to the JavaScript console.
-- Ask other guardianui users for help in our or [Discord](https://discord.gg/TkfeTpfYxx).
+- Ask other GuardianTest users for help in our or [Discord](https://discord.gg/TkfeTpfYxx).
 
 ### Complete the Issue Template
 
@@ -91,7 +91,7 @@ It can be tempting to provide us with your solution, but the most important thin
 
 ## Writing Documentation
 
-guardianui documentation resides in a separate repo with its own dependencies and build tools. See [Documentation Contributing Guidelines] (INSERT LINK)
+GuardianTest documentation resides in a separate repo with its own dependencies and build tools. See [Documentation Contributing Guidelines] (INSERT LINK)
 
 ## Writing Code
 
@@ -164,10 +164,10 @@ footer
 ```
 
 1. *label* is one of the following:
-    - `fix` - guardianui bug fixes.
-    - `feat` - guardianui features.
+    - `fix` - GuardianTest bug fixes.
+    - `feat` - GuardianTest features.
     - `docs` - changes to docs, e.g. `docs(api.md): ..` to change documentation.
-    - `test` - changes to guardianui tests infrastructure.
+    - `test` - changes to GuardianTest tests infrastructure.
     - `devops` - build-related work, e.g. CI related patches and general changes to the browser build infrastructure
     - `chore` - everything that doesn't fall under previous categories
 2. *namespace* is put in parenthesis after label and is optional. Must be lowercase.
