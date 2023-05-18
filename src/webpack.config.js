@@ -32,8 +32,8 @@ module.exports = {
     reasons: false,
     children: false,
     source: false,
-    errors: true,
-    errorDetails: true,
+    errors: false,
+    errorDetails: false,
     warnings: false,
     publicPath: false
   }

@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "scripts": {
+    "bundle": "npx webpack --config ./src/webpack.config.js",
     "test:unit": "jest"
   },
   "repository": {
@@ -30,7 +31,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^8.0.1",
-    "ethers": "^6.3.0",
+    "ethers": "5.7.2",
     "ts-loader": "^9.4.2"
   }
 }
