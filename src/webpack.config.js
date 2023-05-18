@@ -2,7 +2,7 @@ const path = require("path");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "./provider-generator.ts",
+  entry: "./src/provider-generator.ts",
   module: {
     rules: [
       {
@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     filename: "provider.js",
-    path: path.resolve(__dirname, "provider"),
+    path: path.resolve(__dirname, "./src/provider"),
   },
   plugins: [
     new Dotenv() // Required for provider-generator.js to obtain environment variables

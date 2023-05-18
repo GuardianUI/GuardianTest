@@ -138,7 +138,7 @@ export class Eip1193Bridge extends EventEmitter {
 
                 const address = await this.signer.getAddress();
                 if (address !== ethers.utils.getAddress(params![0])) {
-                    logger.throwArgumentError("account mismatch or account not found", "params![0]", params![0]);
+                    throw new Error("account mismatch or account not found");
                 }
 
                 return this.signer.signMessage(ethers.utils.arrayify(params![1]));
@@ -181,9 +181,6 @@ export class Eip1193Bridge extends EventEmitter {
         }
 
         // If the RPC method was not handled, throw an error
-        return logger.throwError(`Unsupported RPC method: ${method}`, ethers.utils.Logger.errors.UNSUPPORTED_OPERATION, {
-            method: method,
-            params: params
-        });
+        throw new Error(`Unsupported RPC method: ${method}`);
     }
 }

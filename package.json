@@ -1,10 +1,11 @@
 {
-  "name": "guardianui",
+  "name": "guardiantest",
   "version": "1.0.0",
   "description": "<p align=\"center\">   <picture>     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\">     <img alt=\"guardianui logo\" src=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\" width=\"auto\" height=\"75\">   </picture> </p>",
-  "main": "index.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:unit": "jest"
   },
   "repository": {
     "type": "git",

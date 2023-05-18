@@ -1,4 +1,4 @@
-import { erc20TokenAbi } from "../abis/ERC20ABI";
+import { erc20TokenAbi } from "./constants/abis/ERC20ABI";
 import { ethers } from "ethers";
 
 require('dotenv').config();

@@ -1,9 +1,8 @@
 import { Page, expect } from "@playwright/test";
-import { erc20TokenAbi } from "../../abis/ERC20ABI";
+import { erc20TokenAbi } from "../constants/abis/ERC20ABI";
 import { ethers } from "ethers";
-import { findAllowanceSlot, findBalanceSlot, getAllowanceSlot, getBalanceSlot } from "../utils";
+import { findAllowanceSlot, findBalanceSlot, getAllowanceSlot, getBalanceSlot, getAlchemyRpcUrl, getInfuraRpcUrl } from "../utils";
 import { exec } from "child_process";
-import { getAlchemyRpcUrl, getInfuraRpcUrl } from "../configuration";
 
 export class GUI {
     // Playwright page object

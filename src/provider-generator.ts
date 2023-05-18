@@ -1,5 +1,5 @@
 import { providers, Wallet } from "ethers";
-import { MockWallet } from "./mocks/MockWallet";
+import { MockWallet } from "./wallet/MockWallet";
 
 // Determin the RPC URL. This can be done with an Alchemy or Infura API key in the .env file
 let rpcUrl;

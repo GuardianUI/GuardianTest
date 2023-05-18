@@ -21,7 +21,7 @@ export class MockWallet extends Eip1193Bridge {
      * @param provider - The RPC provider
      * @param chainId - The chain ID to connect to
      */
-    constructor(signer: Signer, provider: ethers.JsonRpcProvider, chainId: number) {
+    constructor(signer: Signer, provider: ethers.providers.JsonRpcProvider, chainId: number) {
         super(signer, provider);
         this.chainId = chainId;
     }
