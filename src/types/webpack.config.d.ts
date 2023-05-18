@@ -9,7 +9,6 @@ export namespace output {
     const filename: string;
     const path: string;
 }
-export const plugins: any[];
 export namespace resolve {
     const extensions: string[];
 }

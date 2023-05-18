@@ -14,6 +14,7 @@ const test_1 = require("@playwright/test");
 const GUI_1 = require("../models/GUI");
 const utils_1 = require("../utils");
 const ethers_1 = require("ethers");
+const fs_1 = require("fs");
 /**
  * Extend base test to inject a wallet, the GUI page object model, and redirect RPC requests to Anvil
  */
@@ -22,8 +23,27 @@ exports.test = test_1.test.extend({
     actionTimeout: 30000,
     gui: ({ page }, use) => __awaiter(void 0, void 0, void 0, function* () {
         const gui = new GUI_1.GUI(page);
+        // Set up the RPC URL
+        let rpcUrl;
+        if (process.env.GUARDIAN_UI_ALCHEMY_API_KEY) {
+            rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${process.env.GUARDIAN_UI_ALCHEMY_API_KEY}`;
+        }
+        else if (process.env.GUARDIAN_UI_INFURA_API_KEY) {
+            rpcUrl = `https://mainnet.infura.io/v3/${process.env.GUARDIAN_UI_INFURA_API_KEY}`;
+        }
+        else {
+            throw new Error("No RPC URL provided");
+        }
+        // Generate private key
+        const privateKey = ethers_1.ethers.Wallet.createRandom().privateKey;
+        // Open Wallet provider code
+        let walletProviderCode = yield fs_1.promises.readFile("provider/provider.js", ({ encoding: "utf-8" }));
+        // Replace the placeholder RPC text with the appropriate RPC URL
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__RPC", process.env.RPC_URL);
+        // Replace the placeholder private key text with the generated private key
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__PRIVATE_KEY", privateKey);
         // Inject a wallet object to window.ethereum
-        yield page.addInitScript({ path: "provider/provider.js" });
+        yield page.addInitScript(walletProviderCode);
         // Intercept RPC requests
         yield page.route(utils_1.isMainnetRPC, (route, request) => __awaiter(void 0, void 0, void 0, function* () {
             // If current network is not Ethereum mainnet, continue the request to the original provider

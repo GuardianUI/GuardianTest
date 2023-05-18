@@ -1,6 +1,6 @@
 "use strict";
 const path = require("path");
-const Dotenv = require("dotenv-webpack");
+// const Dotenv = require("dotenv-webpack");
 module.exports = {
     entry: "./src/provider-generator.ts",
     module: {
@@ -13,11 +13,8 @@ module.exports = {
     },
     output: {
         filename: "provider.js",
-        path: path.resolve(__dirname, "./src/provider"),
+        path: path.resolve(__dirname, "./provider"),
     },
-    plugins: [
-        new Dotenv() // Required for provider-generator.js to obtain environment variables
-    ],
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
@@ -32,8 +29,8 @@ module.exports = {
         reasons: false,
         children: false,
         source: false,
-        errors: true,
-        errorDetails: true,
+        errors: false,
+        errorDetails: false,
         warnings: false,
         publicPath: false
     }

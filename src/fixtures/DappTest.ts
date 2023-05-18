@@ -2,6 +2,7 @@ import { expect, Page, test as base } from "@playwright/test";
 import { GUI } from "../models/GUI";
 import { isArbiRPC, isMainnetRPC, isOptiRPC, isPolyRPC } from "../utils";
 import { ethers } from "ethers";
+import { promises as fs} from "fs";
 
 export interface TestProps {
     page: Page;
@@ -17,8 +18,30 @@ export const test = base.extend<{ gui: GUI }>({
     gui: async ({ page }, use) => {
         const gui = new GUI(page);
 
+        // Set up the RPC URL
+        let rpcUrl;
+        if (process.env.GUARDIAN_UI_ALCHEMY_API_KEY) {
+            rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${process.env.GUARDIAN_UI_ALCHEMY_API_KEY}`;
+        } else if (process.env.GUARDIAN_UI_INFURA_API_KEY) {
+            rpcUrl = `https://mainnet.infura.io/v3/${process.env.GUARDIAN_UI_INFURA_API_KEY}`;
+        } else {
+            throw new Error("No RPC URL provided");
+        }
+
+        // Generate private key
+        const privateKey = ethers.Wallet.createRandom().privateKey;
+
+        // Open Wallet provider code
+        let walletProviderCode = await fs.readFile("provider/provider.js", ({ encoding: "utf-8" }));
+
+        // Replace the placeholder RPC text with the appropriate RPC URL
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__RPC", process.env.RPC_URL as string);
+
+        // Replace the placeholder private key text with the generated private key
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__PRIVATE_KEY", privateKey);
+
         // Inject a wallet object to window.ethereum
-        await page.addInitScript({ path: "provider/provider.js" });
+        await page.addInitScript(walletProviderCode);
 
         // Intercept RPC requests
         await page.route(isMainnetRPC, async (route, request) => {
