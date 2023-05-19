@@ -3,6 +3,7 @@ import { GUI } from "../models/GUI";
 import { isArbiRPC, isMainnetRPC, isOptiRPC, isPolyRPC } from "../utils";
 import { ethers } from "ethers";
 import { promises as fs} from "fs";
+import * as path from "path";
 
 export interface TestProps {
     page: Page;
@@ -32,7 +33,8 @@ export const test = base.extend<{ gui: GUI }>({
         const privateKey = ethers.Wallet.createRandom().privateKey;
 
         // Open Wallet provider code
-        let walletProviderCode = await fs.readFile("provider/provider.js", ({ encoding: "utf-8" }));
+        const parentDir = path.resolve(__dirname, "..");
+        let walletProviderCode = await fs.readFile(`${parentDir}/provider/provider.js`, ({ encoding: "utf-8" }));
 
         // Replace the placeholder RPC text with the appropriate RPC URL
         walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__RPC", process.env.RPC_URL as string);

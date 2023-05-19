@@ -2,13 +2,13 @@
   "name": "guardiantest",
   "version": "1.0.0",
   "description": "<p align=\"center\">   <picture>     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\">     <img alt=\"guardianui logo\" src=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\" width=\"auto\" height=\"75\">   </picture> </p>",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
-      "types": "./src/types/index.d.ts",
-      "import": "./src/index.mjs",
-      "require": "./src/index.js",
-      "default": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
