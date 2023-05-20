@@ -64,7 +64,7 @@ npx playwright install
 - Engage with local deployments, staging deployments, OR live production
 - Perform tests on Ethereum, Polygon, Arbitrum, or Optimism (more coming soon)
 - Pin tests to any block
-- Interact with a site with a wallet
+- Interact with a site using a wallet
 - Mock ERC20 balances and allowances
 - Validate target contract addresses from app interactions
 - Perform any other actions or validation [Playwright](https://github.com/microsoft/playwright) offers
@@ -82,15 +82,15 @@ npx playwright install
 
 ## How it works
 
-- Uses Playwright to interact with the site
-- At the time of a test run, the framework spins up an Anvil fork of the desired network using Foundry
-- It then injects a wallet to the browser that uses the Anvil fork as its RPC 
-- It then states its chain ID to be that of the mainnet of the desired network and reports any “eth_sendTransaction” requests
+- Spins up an Anvil fork of the desired network at the time of test run
+- Uses Playwright to run browser interactions and engage with the site
+- Injects a wallet to the browser that's connected to the Anvil fork
+- Checks eth_sendTransaction and eth_sendRawTransaction RPC requests when instructed to via gui.validateContractInteraction
 
 
 ## Documentation
 
-For full documentation and examples, visit [guardianui.com](INSERT LINK).
+For full documentation and examples, visit [guardianui.com](https://docs.guardianui.com/).
   
   
 ## Community
@@ -108,6 +108,6 @@ Check out the following places for more GuardianUI-related content:
 If you're interested in contributing, please read the [contributing docs](https://github.com/GuardianUI/guardianui/blob/main/CONTRIBUTING.md) before submitting a pull request.
 
 ## Resources
-* Documentation (INSERT LINK)
+* [Documentation](https://docs.guardianui.com/)
 * [Contributing guide](CONTRIBUTING.md)
 * [GuardianUI website](https://www.guardianui.com/)  
