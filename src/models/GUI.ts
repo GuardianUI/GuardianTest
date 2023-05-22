@@ -3,6 +3,8 @@ import { erc20TokenAbi } from "../constants/abis/ERC20ABI";
 import { ethers } from "ethers";
 import { findAllowanceSlot, findBalanceSlot, getAllowanceSlot, getBalanceSlot, getAlchemyRpcUrl, getInfuraRpcUrl } from "../utils";
 import { exec } from "child_process";
+import * as path from "path";
+import { promises as fs} from "fs";
 
 export class GUI {
     // Playwright page object
@@ -22,10 +24,21 @@ export class GUI {
      * @param forkBlockNumber - Block number to fork from (optional)
      */
     async initializeChain(chainId: number, forkBlockNumber?: number) {
-        // If an Alchemy RPC key is provided, use it. Otherwise, if an Infura RPC key is provided
-        // use that. Otherwise throw an error.
+        // Kill any existing Anvil processes to avoid conflicts
+        exec("killall anvil");
+
+        // If a GuardianUI RPC cache url is provided, use it. Otherwise, if an Alchemy RPC key is provided
+        // use it. Otherwise, if an Infura RPC key is provided use that. Otherwise throw an error.
         let forkRpc;
-        if (process.env.GUARDIAN_UI_ALCHEMY_API_KEY) {
+        if (process.env.GUARDIAN_UI_ETHEREUM_RPC_URL) {
+            forkRpc = process.env.GUARDIAN_UI_ETHEREUM_RPC_URL;
+        } else if (process.env.GUARDIAN_UI_ARBITRUM_RPC_URL) {
+            forkRpc = process.env.GUARDIAN_UI_ARBITRUM_RPC_URL;
+        } else if (process.env.GUARDIAN_UI_OPTIMISM_RPC_URL) {
+            forkRpc = process.env.GUARDIAN_UI_OPTIMISM_RPC_URL;
+        } else if (process.env.GUARDIAN_UI_POLYGON_RPC_URL) {
+            forkRpc = process.env.GUARDIAN_UI_POLYGON_RPC_URL;
+        } else if (process.env.GUARDIAN_UI_ALCHEMY_API_KEY) {
             forkRpc = getAlchemyRpcUrl(chainId, process.env.GUARDIAN_UI_ALCHEMY_API_KEY);
         } else if (process.env.GUARDIAN_UI_INFURA_API_KEY) {
             forkRpc = getInfuraRpcUrl(chainId, process.env.GUARDIAN_UI_INFURA_API_KEY);
@@ -33,7 +46,7 @@ export class GUI {
             throw new Error("No RPC key provided");
         }
 
-        // Create fork
+        // Create fork in background
         exec(`anvil ${forkBlockNumber ? `--fork-block-number=${forkBlockNumber}` : ``} --fork-url=${forkRpc} &`);
 
         const newProvider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545", chainId);
@@ -53,22 +66,26 @@ export class GUI {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
             }
         } while (!processStarted);
-    }
 
-    /**
-     * Kill the forked chain and Anvil process
-     */
-    async killChain() {
-        await this.page.close();
-        exec("killall anvil");
-    }
+        // Inject wallet
+        // Generate private key
+        const privateKey = ethers.Wallet.createRandom().privateKey;
 
-    /**
-     * Update the provider in the injected wallet to use a specific chain ID
-     * @param chainId - Chain ID to update the provider to
-     */
-    async initializeWallet(chainId: number) {
-        await this.page.evaluate(`window.ethereum.updateChain(${chainId})`);
+        // Open wallet provider code
+        const parentDir = path.resolve(__dirname, "..");
+        let walletProviderCode = await fs.readFile(`${parentDir}/provider/provider.js`, ({ encoding: "utf-8" }));
+
+        // Replace the placeholder RPC text with the appropriate RPC URL
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__RPC", "http://127.0.0.1:8545");
+
+        // Replace the placeholder chain ID text with the appropriate chain ID
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__CHAIN_ID", chainId.toString());
+
+        // Replace the placeholder private key text with the generated private key
+        walletProviderCode = walletProviderCode.replace("__GUARDIANUI_MOCK__PRIVATE_KEY", privateKey);
+
+        // Inject a wallet object to window.ethereum when the page loads
+        await this.page.addInitScript(walletProviderCode);
     }
 
     /**
