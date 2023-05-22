@@ -1,6 +1,6 @@
 {
-  "name": "@0xlienid/guardiantest",
-  "version": "1.0.2",
+  "name": "@guardianui/test",
+  "version": "0.1.2",
   "description": "<p align=\"center\">   <picture>     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\">     <img alt=\"guardianui logo\" src=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\" width=\"auto\" height=\"75\">   </picture> </p>",
   "main": "./dist/index.js",
   "exports": {
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "bundle": "npx webpack --config ./src/webpack.config.js",
-    "publish-package": "npm run bundle && npx tsc && npm publish",
+    "publish-package": "npm run bundle && npx tsc && npm publish --access public",
     "test:unit": "jest"
   },
   "repository": {
