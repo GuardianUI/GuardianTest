@@ -10,7 +10,7 @@ class MockInternalMetaMask {
 }
 
 export class MockWallet extends Eip1193Bridge {
-    chainId;
+    chainId: string | number;
     isMetaMask = true;
     isConnected = () => true;
     _metamask = new MockInternalMetaMask();
@@ -21,7 +21,7 @@ export class MockWallet extends Eip1193Bridge {
      * @param provider - The RPC provider
      * @param chainId - The chain ID to connect to
      */
-    constructor(signer: Signer, provider: ethers.providers.JsonRpcProvider, chainId: number) {
+    constructor(signer: Signer, provider: ethers.providers.JsonRpcProvider, chainId: string) {
         super(signer, provider);
         this.chainId = chainId;
     }
@@ -79,9 +79,9 @@ export class MockWallet extends Eip1193Bridge {
         // Move control over the return value of the chain ID to the wallet rather than passing along to Anvil
         if (method === "eth_chainId") {
             if (isCallbackForm) {
-                callback(null, { result: ethers.utils.hexlify(this.chainId) });
+                callback(null, { result: ethers.utils.hexlify(parseInt(this.chainId.toString())) });
             } else {
-                return Promise.resolve(ethers.utils.hexlify(this.chainId));
+                return Promise.resolve(ethers.utils.hexlify(parseInt(this.chainId.toString())));
             }
         }
 
