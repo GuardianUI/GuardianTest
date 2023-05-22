@@ -10,6 +10,14 @@ export class GUI {
     // Playwright page object
     readonly page: Page;
 
+    // Mapping of chain IDs to RPC cache .env variables
+    readonly rpcCacheEnvVars = {
+        1: "GUARDIAN_UI_ETHEREUM_RPC_URL",
+        42161: "GUARDIAN_UI_ARBITRUM_RPC_URL",
+        10: "GUARDIAN_UI_OPTIMISM_RPC_URL",
+        137: "GUARDIAN_UI_POLYGON_RPC_URL"
+    };
+
     /**
      * @constructor
      * @param page Playwright page object from the current test
@@ -18,26 +26,26 @@ export class GUI {
         this.page = page;
     }
 
+    getCacheUrl(chainId: number): string | undefined {
+        const chainIdEnvVar = this.rpcCacheEnvVars[chainId as keyof typeof this.rpcCacheEnvVars];
+
+        if (process.env[chainIdEnvVar]) {
+            return process.env[chainIdEnvVar];
+        }
+    }
+
     /**
      * Spawn a forked chain using Anvil using a specific chain and optionally a block number
      * @param chainId - Chain ID to fork
      * @param forkBlockNumber - Block number to fork from (optional)
      */
     async initializeChain(chainId: number, forkBlockNumber?: number) {
-        // Kill any existing Anvil processes to avoid conflicts
-        exec("killall anvil");
-
         // If a GuardianUI RPC cache url is provided, use it. Otherwise, if an Alchemy RPC key is provided
         // use it. Otherwise, if an Infura RPC key is provided use that. Otherwise throw an error.
         let forkRpc;
-        if (process.env.GUARDIAN_UI_ETHEREUM_RPC_URL) {
-            forkRpc = process.env.GUARDIAN_UI_ETHEREUM_RPC_URL;
-        } else if (process.env.GUARDIAN_UI_ARBITRUM_RPC_URL) {
-            forkRpc = process.env.GUARDIAN_UI_ARBITRUM_RPC_URL;
-        } else if (process.env.GUARDIAN_UI_OPTIMISM_RPC_URL) {
-            forkRpc = process.env.GUARDIAN_UI_OPTIMISM_RPC_URL;
-        } else if (process.env.GUARDIAN_UI_POLYGON_RPC_URL) {
-            forkRpc = process.env.GUARDIAN_UI_POLYGON_RPC_URL;
+        const rpcCacheUrl = this.getCacheUrl(chainId);
+        if (rpcCacheUrl) {
+            forkRpc = rpcCacheUrl;
         } else if (process.env.GUARDIAN_UI_ALCHEMY_API_KEY) {
             forkRpc = getAlchemyRpcUrl(chainId, process.env.GUARDIAN_UI_ALCHEMY_API_KEY);
         } else if (process.env.GUARDIAN_UI_INFURA_API_KEY) {
