@@ -71,13 +71,13 @@ If you already are using Playwright and already have a `playwright.config.ts`:
 
 - Add /.\*gui\.(js|ts|mjs)/ to the testMatch entry to make sure Playwright recognizes our tests
   - If you do not have a testMatch entry in the config, add one like shown in the example below
-  - If you have existing Playwright tests that are either named with the testName.spec.ts or testName.test.ts naming conventions make the following your testMatch entry: [/.*gui\.(js|ts|mjs)/, /.*(spec|test)\.(js|ts|mjs)/]
-- Set fullyParallel to false
+  - If you have existing Playwright tests that are either named with the testName.spec.ts or testName.test.ts naming conventions make the following your testMatch entry: `[/.*gui\.(js|ts|mjs)/, /.*(spec|test)\.(js|ts|mjs)/]`
+- Set `fullyParallel` to `false`
 - Set workers to 1
 
 **env**
 
-At your repo's top-level directory create another file called .env or if you already have one add the following to your existing .env. Comment out whichever line you do not use with a # at the start.
+Create another file called `.env` in your repo's top-level directory, or add the following to your existing `.env` file if you already have one. Comment out whichever line you do not use with a `#` at the start.
 
 ```bash
 # Must fill in one of these API keys, do not need both
