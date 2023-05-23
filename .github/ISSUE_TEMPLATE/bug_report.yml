@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! The more info you provide, the more we can help you. 
+        Thanks for taking the time to fill out this bug report! The more info you provide, the more we can help you.
 
   - type: checkboxes
     attributes:
@@ -50,23 +50,23 @@ body:
       description: |
         Please provide a link to a minimal repository that can reproduce the problem you ran into.
         This makes investigating issues and helping you out significantly easier!
-      placeholder: 
+      placeholder:
     validations:
       required: false
-  
+
   - type: textarea
-  attributes:
-    label: Operating system
-    description: What operating system are you using?
-  validations:
-    required: false
- 
-   - type: textarea
-  attributes:
-    label: Browser
-    description: What browser are you using?
-  validations:
-    required: false
+    attributes:
+      label: Operating system
+      description: What operating system are you using?
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Browser
+      description: What browser are you using?
+    validations:
+      required: false
 
   - type: textarea
     attributes:
