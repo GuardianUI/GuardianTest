@@ -2,6 +2,7 @@ node_modules
 .github
 dist/*.test.ts
 src
+test-examples
 CLA.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
