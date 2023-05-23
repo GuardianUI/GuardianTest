@@ -11,9 +11,9 @@
 
 <br>
 
-## What the GuardianUI framework enables
+## What the GuardianTest framework enables
 
-- Testing in an environment similar to production across any EVM-compatible chain
+- Testing in an environment similar to production across EVM-compatible chains
 - Everything [Playwright](https://github.com/microsoft/playwright) already allows you to test (what is displayed, navigation works as expected, buttons are clickable, etc)
 - Making sure your frontend is creating the expected write smart contract interactions (transactions, approvals)
 - Ensuring your frontend responds to a completed transaction the way you are expecting
@@ -33,33 +33,50 @@
 
 - Uses Playwright to interact with the site
 - At the time of a test run, the framework spins up an Anvil fork of the desired network using Foundry
-- It then injects a wallet to the browser that uses the Anvil fork as its RPC 
-- It then states its chain ID to be that of the mainnet of the desired network and reports any “eth_sendTransaction” requests
-
+- It then injects a wallet to the browser that uses the Anvil fork as its RPC
+- It then states its chain ID to be that of the mainnet of the desired network and reports any “eth_sendTransaction” or "eth_sendRawTransaction" requests
 
 ## Documentation
 
-For full documentation and examples, visit [guardianui.com](INSERT LINK).
+For full documentation and examples, visit the [GuardianTest Docs](https://docs.guardianui.com/).
 
 ## Installation
 
-Install guardianui and its dependencies.
+Install GuardianTest and its dependencies.
 
 ```bash
-npm install @guardianui/guardianui
+npm install --save-dev @guardianui/test
+```
+
+or
+
+```bash
+yarn add -D @guardianui/test
 ```
 
 ## Quick Start
-  
+
+- To use GuardianTest you'll need [Foundry](https://book.getfoundry.sh/getting-started/installation#installation) installed.
+- You'll also need to install the Playwright browsers:
+
+```bash
+npx playwright install
+```
+
+- Make sure you set up a [Playwright Config File](https://docs.guardianui.com/platform/guardiantest/getting-started/installation#playwright-config)
+- Create a folder called `tests` if you don't have one already
+- Create a test file following the `testName.gui.ts` naming convention
+- Follow our [guide](https://docs.guardianui.com/platform/guardiantest/getting-started/writing-your-first-e2e-test) to write your first GuardianTest test
+
 ## Community
 
 Check out the following places for more GuardianUI-related content:
 
 - Join the [discussions on GitHub](https://github.com/GuardianUI/guardianui/discussions)
 - Follow [@guardian_ui](https://twitter.com/guardian_ui) on Twitter for project updates
-- Share [your project/organization](https://github.com/GuardianUI/guardianui/discussions/2) that's using GuardianUI
+- Share [your project/organization](https://github.com/GuardianUI/guardianui/discussions/2) that's using GuardianTest
 - Join the [GuardianUI discord](https://discord.gg/TkfeTpfYxx) to connect with other devs and the GuardianUI team.
-- Learn more about additional GuardianUI products and features by visiting [our website](https://www.guardianui.com/). 
+- Learn more about additional GuardianUI products and features by visiting [our website](https://www.guardianui.com/).
 
 ## Contributing
 
