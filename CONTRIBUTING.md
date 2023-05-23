@@ -179,7 +179,7 @@ A barrier for introducing new installation dependencies is especially high:
 - Every public api event/method should be accompanied by a test.
 - Tests should be _hermetic_. Tests should not depend on external services.
 - Tests should work on all three platforms: Mac, Linux and Windows. This is especially important for screenshot tests.
-- Tests are currently written with jest
+- Tests are currently written with [jest](https://jestjs.io/docs/getting-started)
 
 - To run all tests:
 
@@ -197,7 +197,7 @@ yarn test:unit
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+the rights to use your contribution. For details, visit our [CLA](https://github.com/GuardianUI/GuardianTest/blob/main/CLA.md).
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
