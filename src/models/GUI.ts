@@ -26,12 +26,25 @@ export class GUI {
         this.page = page;
     }
 
+    /**
+     * Gets the GuardianUI RPC cache URL for a specific chain ID if it exists
+     * @param chainId - Chain ID to get the RPC cache URL for
+     * @returns RPC cache URL if it exists, undefined otherwise
+     */
     getCacheUrl(chainId: number): string | undefined {
         const chainIdEnvVar = this.rpcCacheEnvVars[chainId as keyof typeof this.rpcCacheEnvVars];
 
         if (process.env[chainIdEnvVar]) {
             return process.env[chainIdEnvVar];
         }
+    }
+
+    /**
+     * Gets the address of the currently injected wallet
+     * @returns The address of the currently injected wallet
+     */
+    async getWalletAddress(): Promise<string> {
+        return await this.page.evaluate("window.ethereum.signer.address");
     }
 
     /**
