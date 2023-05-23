@@ -1,0 +1,8 @@
+node_modules
+.github
+dist/*.test.ts
+src
+CLA.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+jest.config.js
