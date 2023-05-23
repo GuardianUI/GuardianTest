@@ -73,7 +73,7 @@ If you already are using Playwright and already have a `playwright.config.ts`:
   - If you do not have a testMatch entry in the config, add one like shown in the example below
   - If you have existing Playwright tests that are either named with the testName.spec.ts or testName.test.ts naming conventions make the following your testMatch entry: `[/.*gui\.(js|ts|mjs)/, /.*(spec|test)\.(js|ts|mjs)/]`
 - Set `fullyParallel` to `false`
-- Set workers to 1
+- Set `workers` to `1`
 
 **env**
 
