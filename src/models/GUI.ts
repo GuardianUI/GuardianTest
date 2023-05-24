@@ -26,12 +26,94 @@ export class GUI {
         this.page = page;
     }
 
+    /**
+     * Gets the GuardianUI RPC cache URL for a specific chain ID if it exists
+     * @param chainId - Chain ID to get the RPC cache URL for
+     * @returns RPC cache URL if it exists, undefined otherwise
+     */
     getCacheUrl(chainId: number): string | undefined {
         const chainIdEnvVar = this.rpcCacheEnvVars[chainId as keyof typeof this.rpcCacheEnvVars];
 
         if (process.env[chainIdEnvVar]) {
             return process.env[chainIdEnvVar];
         }
+    }
+
+    /**
+     * Gets the address of the currently injected wallet
+     * @returns The address of the currently injected wallet
+     */
+    async getWalletAddress(): Promise<string> {
+        return await this.page.evaluate("window.ethereum.signer.address");
+    }
+
+    /**
+     * Gets the ETH balance of a specific address
+     * @param address - The address to get the ETH balance of
+     * @returns The ETH balance of the address
+     */
+    async getEthBalance(address: string): Promise<string> {
+        // Pull provider URL from the page
+        const providerUrl: string = await this.page.evaluate("window.ethereum.provider.connection.url");
+
+        // Pull chain ID from the page
+        const chainId: string = await this.page.evaluate("window.ethereum.chainId");
+
+        // Create provider
+        const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+
+        // Get the ETH balance of the address
+        const balance = await provider.getBalance(address);
+        return balance.toString();
+    }
+
+    /**
+     * Gets the balance of a specific token for a specific address
+     * @param token - The token to get the balance of
+     * @param address - The address to get the balance of
+     * @returns The balance of the token for the address
+     */
+    async getBalance(token: string, address: string): Promise<string> {
+        // Pull provider URL from the page
+        const providerUrl: string = await this.page.evaluate("window.ethereum.provider.connection.url");
+
+        // Pull chain ID from the page
+        const chainId: string = await this.page.evaluate("window.ethereum.chainId");
+
+        // Create provider
+        const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+
+        // Create ERC20 contract object
+        const erc20Contract = new ethers.Contract(token, erc20TokenAbi, provider);
+
+        // Get token balance
+        const balance = await erc20Contract.balanceOf(address);
+        return balance.toString();
+    }
+
+    /**
+     * Gets the allowance of a specific token for specific owner and spender addresses
+     * @param token - The token to get the allowance of
+     * @param ownerAddress - The address of the owner of the tokens to get the allowance for
+     * @param spenderAddress - The address of the spender of the tokens to get the allowance for
+     * @returns The allowance of the token for the owner and spender addresses
+     */
+    async getAllowance(token: string, ownerAddress: string, spenderAddress: string): Promise<string> {
+        // Pull provider URL from the page
+        const providerUrl: string = await this.page.evaluate("window.ethereum.provider.connection.url");
+
+        // Pull chain ID from the page
+        const chainId: string = await this.page.evaluate("window.ethereum.chainId");
+
+        // Create provider
+        const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+
+        // Create ERC20 contract object
+        const erc20Contract = new ethers.Contract(token, erc20TokenAbi, provider);
+
+        // Get token allowance
+        const allowance = await erc20Contract.allowance(ownerAddress, spenderAddress);
+        return allowance.toString();
     }
 
     /**
