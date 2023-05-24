@@ -1,6 +1,6 @@
 {
   "name": "@guardianui/test",
-  "version": "0.1.2",
+  "version": "1.0.1",
   "description": "<p align=\"center\">   <picture>     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\">     <img alt=\"guardianui logo\" src=\"https://github.com/GuardianUI/landing-page/blob/main/assets/images/logo.png\" width=\"auto\" height=\"75\">   </picture> </p>",
   "main": "./dist/index.js",
   "exports": {
@@ -37,7 +37,7 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "@playwright/test": "^1.33.0",
+    "@playwright/test": "~1.33.0",
     "dotenv": "^16.0.3",
     "ethers": "5.7.2"
   }

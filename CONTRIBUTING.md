@@ -66,7 +66,7 @@ If you've gone through these steps, are up to date, supported, have collected in
 
 Before creating a bug report, make sure you are up to date. Your issue may have already been fixed. Even if you do not see the issue described as resolved in a newer version, a newer version may help in the process of debugging your issue by giving more helpful error messages.
 
-[See our document on installing GuardianTest](https://github.com/GuardianUI/guardianui-documentation/blob/main/getting-started/installation.md)
+See our documentation on [installing GuardianTest](https://docs.guardianui.com/platform/guardiantest/getting-started/installation)
 
 ### Getting More Information
 
