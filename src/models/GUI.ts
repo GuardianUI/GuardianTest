@@ -136,8 +136,10 @@ export class GUI {
             throw new Error("No RPC key provided");
         }
 
+        const ANVIL_FLAGS = process.env.GUARDIAN_UI_ANVIL_FLAGS ? process.env.GUARDIAN_UI_ANVIL_FLAGS : "";
+
         // Create fork in background
-        exec(`anvil ${forkBlockNumber ? `--fork-block-number=${forkBlockNumber}` : ``} --fork-url=${forkRpc} &`);
+        exec(`anvil ${forkBlockNumber ? `--fork-block-number=${forkBlockNumber}` : ``} --fork-url=${forkRpc} ${ANVIL_FLAGS} &`);
 
         const newProvider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545", chainId);
 
