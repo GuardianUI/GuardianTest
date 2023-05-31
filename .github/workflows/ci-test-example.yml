@@ -1,0 +1,31 @@
+name: 'CLA Assistant'
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Install package dependencies
+        run: yarn install --non-interactive
+      - name: Install local @guardianui/test package
+        run: yarn add yarn add file:./
+      - name: Run example tests
+        run: npx playwright test test-examples/
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
