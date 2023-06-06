@@ -126,18 +126,15 @@ export class Eip1193Bridge extends EventEmitter {
             }
             case "eth_getTransactionByHash": {
                 const result = await this.provider.send("eth_getTransactionByHash", params![0]);
-                console.log("eth_getTransactionByHash", result);
                 return result;
             }
             case "eth_getTransactionReceipt": {
                 const result = await this.provider.send("eth_getTransactionReceipt", params![0]);
-                console.log("eth_getTransactionReceipt", result);
                 return result;
             }
             case "eth_subscribe": {
                 if (params![0] === "newHeads") {
                     const result = await this.provider.send("eth_subscribe", params![0]);
-                    console.log("eth_subscribe", result);
                     return result;
                 }
                 break;
