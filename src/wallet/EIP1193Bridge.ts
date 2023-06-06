@@ -99,18 +99,47 @@ export class Eip1193Bridge extends EventEmitter {
                 return result;
             }
             case "eth_sendRawTransaction": {
+                delete params![0].from;
                 return await this.provider.sendTransaction(params![0]);
             }
             case "eth_call": {
                 const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params![0]);
                 return await this.provider.call(req, params![1]);
             }
+            case "eth_estimateGas": {
+                if (params![1] && params![1] !== "latest") {
+                    throw new Error("estimateGas does not support blockTag");
+                }
+
+                params![0].gasLimit = params![0].gas;
+                delete params![0].gas;
+
+                delete params![0].from;
+
+                const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params![0]);
+
+                req.gasLimit = req.gas;
+                delete req.gas;
+
+                const result = await this.provider.estimateGas(req);
+                return result.toHexString();
+            }
+
             case "estimateGas": {
                 if (params![1] && params![1] !== "latest") {
                     throw new Error("estimateGas does not support blockTag");
                 }
 
+                params![0].gasLimit = params![0].gas;
+                delete params![0].gas;
+
+                delete params![0].from;
+
                 const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params![0]);
+
+                req.gasLimit = req.gas;
+                delete req.gas;
+
                 const result = await this.provider.estimateGas(req);
                 return result.toHexString();
             }
