@@ -11,14 +11,14 @@ import { ethers } from "ethers";
  */
 export class Eip1193Bridge extends EventEmitter {
     signer: ethers.Signer;
-    provider: ethers.providers.Provider;
+    provider: ethers.providers.JsonRpcProvider;
 
     /**
      * @constructor
      * @param signer - The signer to use for the bridge
      * @param provider - The RPC provider to use for the bridge
      */
-    constructor(signer: ethers.Signer, provider: ethers.providers.Provider) {
+    constructor(signer: ethers.Signer, provider: ethers.providers.JsonRpcProvider) {
         super();
         this.signer = signer;
         this.provider = provider;
@@ -36,7 +36,7 @@ export class Eip1193Bridge extends EventEmitter {
      * Setter for the provider state variable
      * @param provider - The RPC provider to use for the bridge
      */
-    setProvider(provider: ethers.providers.Provider) {
+    setProvider(provider: ethers.providers.JsonRpcProvider) {
         this.provider = provider;
     }
 
@@ -125,10 +125,22 @@ export class Eip1193Bridge extends EventEmitter {
                 }
             }
             case "eth_getTransactionByHash": {
-                return await this.provider.getTransaction(params![0]);
+                const result = await this.provider.send("eth_getTransactionByHash", params![0]);
+                console.log("eth_getTransactionByHash", result);
+                return result;
             }
             case "eth_getTransactionReceipt": {
-                return await this.provider.getTransactionReceipt(params![0]);
+                const result = await this.provider.send("eth_getTransactionReceipt", params![0]);
+                console.log("eth_getTransactionReceipt", result);
+                return result;
+            }
+            case "eth_subscribe": {
+                if (params![0] === "newHeads") {
+                    const result = await this.provider.send("eth_subscribe", params![0]);
+                    console.log("eth_subscribe", result);
+                    return result;
+                }
+                break;
             }
 
             case "eth_sign": {
