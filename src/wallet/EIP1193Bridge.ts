@@ -111,17 +111,11 @@ export class Eip1193Bridge extends EventEmitter {
                     throw new Error("estimateGas does not support blockTag");
                 }
 
-                params![0].gasLimit = params![0].gas;
-                delete params![0].gas;
-
                 delete params![0].from;
 
                 const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params![0]);
 
-                req.gasLimit = req.gas;
-                delete req.gas;
-
-                const result = await this.provider.estimateGas(req);
+                const result  = await this.signer.estimateGas(req);
                 return result.toHexString();
             }
 
@@ -130,17 +124,11 @@ export class Eip1193Bridge extends EventEmitter {
                     throw new Error("estimateGas does not support blockTag");
                 }
 
-                params![0].gasLimit = params![0].gas;
-                delete params![0].gas;
-
                 delete params![0].from;
 
                 const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params![0]);
 
-                req.gasLimit = req.gas;
-                delete req.gas;
-
-                const result = await this.provider.estimateGas(req);
+                const result = await this.signer.estimateGas(req);
                 return result.toHexString();
             }
 
@@ -154,11 +142,11 @@ export class Eip1193Bridge extends EventEmitter {
                 }
             }
             case "eth_getTransactionByHash": {
-                const result = await this.provider.send("eth_getTransactionByHash", params![0]);
+                const result = await this.provider.getTransaction(params![0]);
                 return result;
             }
             case "eth_getTransactionReceipt": {
-                const result = await this.provider.send("eth_getTransactionReceipt", params![0]);
+                const result = await this.provider.getTransaction(params![0]);
                 return result;
             }
             case "eth_subscribe": {
