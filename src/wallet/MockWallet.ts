@@ -132,6 +132,8 @@ export class MockWallet extends Eip1193Bridge {
             }
             return result;
         } catch (e) {
+            console.log("Error with method: " + method);
+            console.log("Error with params: " + JSON.stringify(params));
             console.error("MockWallet.send THROWS error", { e }, (e as any).stack);
         } finally {}
     }

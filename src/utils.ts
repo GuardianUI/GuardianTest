@@ -1,3 +1,4 @@
+import { Page } from "@playwright/test";
 import { erc20TokenAbi } from "./constants/abis/ERC20ABI";
 import { ethers } from "ethers";
 
@@ -290,4 +291,56 @@ export const findBalanceSlot = async (erc20Address: any, page: any) => {
         // Revert to the snapshot to reset the blockchain state
         await provider.send("evm_revert", [snapshot]);
     }
+}
+
+/**
+ * Routes an array of RPC requests through the Anvil fork and returns the results
+ * @param page - The Playwright page
+ * @param data - The RPC request data
+ * @returns Array of RPC response data
+ */
+export const handleArrayRequest = async (page: Page, data: any): Promise<any> => {
+    // Set up provider object to interact with
+    const chainId: string = await page.evaluate("window.ethereum.chainId");
+    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
+    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+
+    const updatedResponseData = [];
+
+    // Send the RPC requests to Anvil and record the response
+    for (let i = 0; i < data.length; i++) {
+        const resultData = await provider.send(data[i].method, data[i].params);
+
+        updatedResponseData.push({
+            "jsonrpc": "2.0",
+            "id": data[i].id,
+            "result": resultData
+        });
+    }
+
+    return updatedResponseData;
+}
+
+/**
+ * Routes a single RPC request through the Anvil fork and returns the result
+ * @param page - The Playwright page
+ * @param data - The RPC request data
+ * @returns RPC response data object
+ */
+export const handleSingleRequest = async (page: Page, data: any): Promise<any> => {
+    // Set up provider object to interact with
+    const chainId: string = await page.evaluate("window.ethereum.chainId");
+    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
+    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+
+    // Send the RPC request to Anvil and record the response
+    const resultData = await provider.send(data.method, data.params);
+
+    const updatedResponseData = {
+        "jsonrpc": "2.0",
+        "id": data.id,
+        "result": resultData
+    };
+
+    return updatedResponseData;
 }
