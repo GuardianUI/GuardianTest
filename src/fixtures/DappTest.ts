@@ -1,6 +1,6 @@
 import { expect, Page, test as base } from "@playwright/test";
 import { GUI } from "../models/GUI";
-import { isArbiRPC, isMainnetRPC, isOptiRPC, isPolyRPC } from "../utils";
+import { handleArrayRequest, handleSingleRequest, isArbiRPC, isMainnetRPC, isOptiRPC, isPolyRPC } from "../utils";
 import { ethers } from "ethers";
 import { promises as fs} from "fs";
 import * as path from "path";
@@ -33,18 +33,16 @@ export const test = base.extend<{ gui: GUI }>({
                     // Parse the request data to pull out RPC method and params
                     const data = JSON.parse(request.postData() as string);
 
-                    // Set up provider object to interact with
-                    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
-                    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
-
-                    // Send the RPC request to Anvil and record the response
-                    const resultData = await provider.send(data.method, data.params);
-
-                    const updatedData = {
-                        "jsonrpc": "2.0",
-                        "id": data.id,
-                        "result": resultData
-                    };
+                    // Handle different request types
+                    let updatedData;
+                    if (data.length && data[0].method !== undefined) {
+                        updatedData = await handleArrayRequest(page, data);
+                    } else if (!data.length && data.method !== undefined) {
+                        updatedData = await handleSingleRequest(page, data);
+                    } else {
+                        console.log("Problematic request data structure: " + JSON.stringify(data));
+                        throw new Error("Invalid RPC request data");
+                    }
 
                     // Fulfill the request with the updated data
                     route.fulfill({
@@ -70,18 +68,16 @@ export const test = base.extend<{ gui: GUI }>({
                     // Parse the request data to pull out RPC method and params
                     const data = JSON.parse(request.postData() as string);
 
-                    // Set up provider object to interact with
-                    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
-                    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
-
-                    // Send the RPC request to Anvil and record the response
-                    const resultData = await provider.send(data.method, data.params);
-
-                    const updatedData = {
-                        "jsonrpc": "2.0",
-                        "id": data.id,
-                        "result": resultData
-                    };
+                    // Hanlde different request types
+                    let updatedData;
+                    if (data.length && data[0].method !== undefined) {
+                        updatedData = await handleArrayRequest(page, data);
+                    } else if (!data.length && data.method !== undefined) {
+                        updatedData = await handleSingleRequest(page, data);
+                    } else {
+                        console.log("Problematic request data structure: " + JSON.stringify(data));
+                        throw new Error("Invalid RPC request data");
+                    }
 
                     // Fulfill the request with the updated data
                     route.fulfill({
@@ -107,18 +103,16 @@ export const test = base.extend<{ gui: GUI }>({
                     // Parse the request data to pull out RPC method and params
                     const data = JSON.parse(request.postData() as string);
 
-                    // Set up provider object to interact with
-                    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
-                    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
-
-                    // Send the RPC request to Anvil and record the response
-                    const resultData = await provider.send(data.method, data.params);
-
-                    const updatedData = {
-                        "jsonrpc": "2.0",
-                        "id": data.id,
-                        "result": resultData
-                    };
+                    // Hanlde different request types
+                    let updatedData;
+                    if (data.length && data[0].method !== undefined) {
+                        updatedData = await handleArrayRequest(page, data);
+                    } else if (!data.length && data.method !== undefined) {
+                        updatedData = await handleSingleRequest(page, data);
+                    } else {
+                        console.log("Problematic request data structure: " + JSON.stringify(data));
+                        throw new Error("Invalid RPC request data");
+                    }
 
                     // Fulfill the request with the updated data
                     route.fulfill({
@@ -144,18 +138,16 @@ export const test = base.extend<{ gui: GUI }>({
                     // Parse the request data to pull out RPC method and params
                     const data = JSON.parse(request.postData() as string);
 
-                    // Set up provider object to interact with
-                    const providerUrl: string = await page.evaluate("window.ethereum.provider.connection.url");
-                    const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
-
-                    // Send the RPC request to Anvil and record the response
-                    const resultData = await provider.send(data.method, data.params);
-
-                    const updatedData = {
-                        "jsonrpc": "2.0",
-                        "id": data.id,
-                        "result": resultData
-                    };
+                    // Hanlde different request types
+                    let updatedData;
+                    if (data.length && data[0].method !== undefined) {
+                        updatedData = await handleArrayRequest(page, data);
+                    } else if (!data.length && data.method !== undefined) {
+                        updatedData = await handleSingleRequest(page, data);
+                    } else {
+                        console.log("Problematic request data structure: " + JSON.stringify(data));
+                        throw new Error("Invalid RPC request data");
+                    }
 
                     // Fulfill the request with the updated data
                     route.fulfill({
