@@ -5,7 +5,7 @@ import { ethers } from "ethers";
  * EIP-1193 Bridge
  * This is an implementation of the spec laid out by EIP-1193 to create an Ethereum Provider API
  * that widely used to promote wallet interoperability. It is a minimal API to handle incoming
- * requests from a dApp and pass them to an RPC provider (e.g. Infura, Alchemy, etc.) and return
+ * requests from a dApp and pass them to an RPC provider (e.g. Infura, Alchemy, Chainstack, etc.) and return
  * the result back to the dApp.
  * @see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
  */
