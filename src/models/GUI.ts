@@ -132,6 +132,8 @@ export class GUI {
             forkRpc = getAlchemyRpcUrl(chainId, process.env.GUARDIAN_UI_ALCHEMY_API_KEY);
         } else if (process.env.GUARDIAN_UI_INFURA_API_KEY) {
             forkRpc = getInfuraRpcUrl(chainId, process.env.GUARDIAN_UI_INFURA_API_KEY);
+        } else if (process.env.GUARDIAN_UI_CHAINSTACK_API_KEY) {
+            forkRpc = getChainstackRpcUrl(chainId, process.env.GUARDIAN_UI_CHAINSTACK_API_KEY);
         } else {
             throw new Error("No RPC key provided");
         }
