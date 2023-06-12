@@ -83,6 +83,7 @@ Create another file called `.env` in your repo's top-level directory, or add the
 # Must fill in one of these API keys, do not need both
 GUARDIAN_UI_INFURA_API_KEY=
 GUARDIAN_UI_ALCHEMY_API_KEY=
+GUARDIAN_UI_CHAINSTACK_API_KEY=
 ```
 
 **package.json**
