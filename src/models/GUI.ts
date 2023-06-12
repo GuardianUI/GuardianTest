@@ -123,7 +123,8 @@ export class GUI {
      */
     async initializeChain(chainId: number, forkBlockNumber?: number) {
         // If a GuardianUI RPC cache url is provided, use it. Otherwise, if an Alchemy RPC key is provided
-        // use it. Otherwise, if an Infura RPC key is provided use that. Otherwise throw an error.
+        // use it. Otherwise, if an Infura RPC key is provided use that. 
+        // Otherwise, if an Chainstack RPC key is provided use that. Otherwise throw an error.
         let forkRpc;
         const rpcCacheUrl = this.getCacheUrl(chainId);
         if (rpcCacheUrl) {
