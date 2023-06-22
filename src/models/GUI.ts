@@ -5,6 +5,7 @@ import { findAllowanceSlot, findBalanceSlot, getAllowanceSlot, getBalanceSlot, g
 import { exec } from "child_process";
 import * as path from "path";
 import { promises as fs} from "fs";
+import { erc1155TokenAbi } from "src/constants/abis/ERC1155ABI";
 
 export class GUI {
     // Playwright page object
@@ -281,6 +282,77 @@ export class GUI {
                 ethers.utils.hexlify(bnAmount)
             ]
         );
+    }
+
+    /**
+     * Set a user's ERC1155 balance to a specific amount
+     */
+    async setERC1155Balance(token: string, amount: any) {
+        // Pull provider URL from the page
+        const providerUrl: string = await this.page.evaluate("window.ethereum.provider.connection.url");
+        
+        // Pull wallet address from the page
+        const userAddress = await this.page.evaluate("window.ethereum.signer.address");
+
+        // Pull chain ID from the page
+        const chainId: string = await this.page.evaluate("window.ethereum.chainId");
+
+        // Automatically find the balance storage slot
+        const balanceSlot = await findBalanceSlot(token, this.page);
+
+        // Calculate balanceOf[userAddress] storage slot
+        const userBalanceSlot = getBalanceSlot(userAddress, balanceSlot);
+
+        // Set the balanceOf[userAddress] storage slot to the desired amount
+        const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+        const bnAmount = ethers.BigNumber.from(amount);
+        await provider.send(
+            "anvil_setStorageAt",
+            [
+                token,
+                userBalanceSlot,
+                ethers.utils.hexZeroPad(ethers.utils.hexlify(bnAmount), 32)
+            ]
+        );
+
+        // Check and report that the balance was set correctly
+        const erc1155Contract = new ethers.Contract(token, erc1155TokenAbi, provider);
+        console.log("Balance of " + userAddress + " is now " + (await erc1155Contract.balanceOf(userAddress)));
+    }
+
+    /**
+     * Sets the allowance of an address to spend a user's ERC1155 token
+     */
+    async setERC1155Allowance(token: string, spenderAddress: string) {
+        // Pull provider URL from the page
+        const providerUrl: string = await this.page.evaluate("window.ethereum.provider.connection.url");
+        
+        // Pull wallet address from the page
+        const userAddress = await this.page.evaluate("window.ethereum.signer.address");
+
+        // Pull chain ID from the page
+        const chainId: string = await this.page.evaluate("window.ethereum.chainId");
+
+        // Automatically find the isApprovedForAll storage slot
+        const isApprovedForAllSlot = "TODO";
+
+        // Calculate isApprovedForAll[userAddress][spenderAddress] storage slot
+        const userIsApprovedForAllSlot = "TODO";
+
+        // Set the isApprovedForAll[userAddress][spenderAddress] storage slot to true
+        const provider = new ethers.providers.JsonRpcProvider(providerUrl, parseInt(chainId));
+        await provider.send(
+            "anvil_setStorageAt",
+            [
+                token,
+                userIsApprovedForAllSlot,
+                true
+            ]
+        );
+
+        // Check and report that the balance was set correctly
+        const erc1155Contract = new ethers.Contract(token, erc1155TokenAbi, provider);
+        console.log("isApprovedForAll for spender " + spenderAddress + "and user " + userAddress + " is now " + (await erc1155Contract.isApprovedForAll(userAddress, spenderAddress)));
     }
 
     /**
