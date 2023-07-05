@@ -14,6 +14,7 @@ export const isMainnetRPC = (url: URL): boolean => {
         url.hostname === "mainnet.infura.io" ||
         url.hostname === "eth-mainnet.g.alchemy.com" ||
         url.hostname === "eth.llamarpc.com" ||
+        url.hostname === "ethereum-mainnet.core.chainstack.com" ||
         url.hostname === "eth-rpc.gateway.pokt.network" ||
         url.hostname === "eth-archival.gateway.pokt.network" ||
         url.hostname === "eth-mainnet.alchemyapi.io" ||
@@ -37,6 +38,7 @@ export const isArbiRPC = (url: URL): boolean => {
         url.hostname === "arb-mainnet.g.alchemy.com" ||
         url.hostname === "arbitrum-rpc.gateway.pokt.network" ||
         url.hostname === "arb-mainnet.alchemyapi.io" ||
+        url.hostname === "arbitrum-mainnet.core.chainstack.com" ||
         (url.hostname === "rpc.ankr.com" && url.pathname === "/arbitrum")
     ) {
         return true;
@@ -55,6 +57,7 @@ export const isOptiRPC = (url: URL): boolean => {
         url.hostname === "optimism-mainnet.infura.io" ||
         url.hostname === "opt-mainnet.g.alchemy.com" ||
         url.hostname === "optimism-rpc.gateway.pokt.network" ||
+        url.hostname === "optimism-mainnet.core.chainstack.com" ||
         url.hostname === "opt-mainnet.alchemyapi.io" ||
         (url.hostname === "rpc.ankr.com" && url.pathname === "/optimism")
     ) {
@@ -74,6 +77,7 @@ export const isPolyRPC = (url: URL): boolean => {
         url.hostname === "polygon-mainnet.infura.io" ||
         url.hostname === "polygon-mainnet.g.alchemy.com" ||
         url.hostname === "poly-rpc.gateway.pokt.network" ||
+        url.hostname === "polygon-mainnet.core.chainstack.com" ||
         url.hostname === "polygon-mainnet.alchemyapi.io" ||
         (url.hostname === "rpc.ankr.com" && url.pathname === "/polygon")
     ) {
@@ -122,6 +126,28 @@ export const getInfuraRpcUrl = (networkId: number, apiKey: string): string => {
             return `https://optimism-mainnet.infura.io/v3/${apiKey}`
         case 137: // Polygon
             return `https://polygon-mainnet.infura.io/v3/${apiKey}`
+        default:
+            throw new Error(`Network ID ${networkId} not supported`);
+    }
+}
+
+/**
+ * Maps a given network ID and API key to an Chainstack RPC URL
+ * @param networkId - The chain's network ID
+ * @param apiKey - The Chainstack API key
+ * @returns The Chainstack RPC URL
+ * @throws If the network ID is not supported
+ */
+export const getChainstackRpcUrl = (networkId: number, apiKey: string): string => {
+    switch (networkId) {
+        case 1: // Mainnet
+            return `https://ethereum-mainnet.core.chainstack.com/${apiKey}`
+        case 42161: // Arbitrum
+            return `https://arbitrum-mainnet.core.chainstack.com/${apiKey}`
+        case 10: // Optimism
+            return `https://optimism-mainnet.core.chainstack.com/${apiKey}`
+        case 137: // Polygon
+            return `https://polygon-mainnet.core.chainstack.com/${apiKey}`
         default:
             throw new Error(`Network ID ${networkId} not supported`);
     }

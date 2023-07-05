@@ -80,9 +80,10 @@ If you already are using Playwright and already have a `playwright.config.ts`:
 Create another file called `.env` in your repo's top-level directory, or add the following to your existing `.env` file if you already have one. Comment out whichever line you do not use with a `#` at the start.
 
 ```bash
-# Must fill in one of these API keys, do not need both
+# Must fill in one of these API keys; only need one
 GUARDIAN_UI_INFURA_API_KEY=
 GUARDIAN_UI_ALCHEMY_API_KEY=
+GUARDIAN_UI_CHAINSTACK_API_KEY=
 ```
 
 **package.json**
